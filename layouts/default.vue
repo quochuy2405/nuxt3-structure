@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Header } from '@/components/organisms'
+import { VHeader } from '@/components/organisms'
 </script>
 <template>
     <div>
-        <Header />
+        <VHeader />
         <slot></slot>
     </div>
 </template>

@@ -12,31 +12,20 @@
     opacity: 0;
 }
 @layer base {
-    .page-enter-active {
-        transition: all 0.1s ease-out;
-    }
-    .page-leave-active {
-        transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
-    }
-    .page-enter-from,
-    .page-leave-to {
-        transform: translateY(20px);
-        opacity: 0;
-    }
-
-    .layout-enter-active {
-        transition: all 0.1s ease-out;
-    }
-    .layout-leave-active {
-        transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
-    }
-    .layout-enter-from,
-    .layout-leave-to {
-        transform: translateY(-20px);
-        opacity: 0;
+    html {
+        font-family: 'Inter', sans-serif;
     }
     .nuxt-icon--fill,
     .nuxt-icon--fill * {
         fill: none !important;
+    }
+    body::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    body {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
     }
 }
