@@ -1,13 +1,13 @@
 <script setup lang="ts">
 interface Props {
-    modelValue?: string
+    vModel?: string
     class?: string
     control?: any
     name: string
     title?: string
 }
 
-const { title, modelValue, control, name, ...props } = withDefaults(
+const { title, vModel, control, name, ...props } = withDefaults(
     defineProps<Props>(),
     {},
 )
@@ -18,12 +18,9 @@ const className = computed(() => ({
 }))
 
 const emit = defineEmits(['update:modelValue'])
-watch(
-    () => modelValue,
-    () => {
-        control?.$touch()
-    },
-)
+const updateValue = (event: any) => {
+    emit('update:modelValue', event.target.value)
+}
 </script>
 
 <template>
@@ -34,18 +31,13 @@ watch(
         }}</label>
         <div class="relative flex items-center">
             <input
-                :value="modelValue"
+                v-model="vModel"
                 type="text"
                 :name="name"
+                placeholder="e.g. example@email.com"
                 class="bg-opacity-20 w-full rounded border border-gray-600 bg-transparent px-3 leading-8 text-gray-100 outline-none transition-colors duration-200 ease-in-out placeholder:text-gray-500 placeholder:font-semibold text-sm focus:border-blue-500 focus:bg-transparent focus:ring-2 focus:ring-transparent flex-1 pr-6 py-1.5"
                 :class="className"
-                @input="
-                    emit(
-                        'update:modelValue',
-                        ($event.target as HTMLInputElement).value,
-                    )
-                "
-                @change="control.$touch"
+                @input="updateValue"
             />
             <!-- The icon is going to render but the name of the icon it will depend on the validation output and the color as well -->
             <Icon
