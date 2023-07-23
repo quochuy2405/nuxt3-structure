@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { Register } from '@/components/templates'
-import {
-    required,
-    email,
-    sameAs,
-    minLength,
-    helpers,
-} from '@vuelidate/validators'
+import { VButton, VTextField } from '@/components/atoms'
 import { useVuelidate } from '@vuelidate/core'
+import {
+    email,
+    helpers,
+    minLength,
+    required,
+    sameAs,
+} from '@vuelidate/validators'
 export interface RegisterForm {
     email: string
     password: string
-    confirmPassword: string
+    confirm: string
 }
 definePageMeta({
     layoutTransition: {
@@ -19,11 +19,12 @@ definePageMeta({
     },
     layout: 'slot',
 })
-const formData = reactive<RegisterForm>({
+const formData = reactive({
     email: '',
     password: '',
-    confirmPassword: null,
+    confirm: '',
 })
+
 const rules = computed(() => {
     return {
         email: {
@@ -40,7 +41,7 @@ const rules = computed(() => {
             ),
             minLength: minLength(6),
         },
-        confirmPassword: {
+        confirm: {
             required: helpers.withMessage(
                 'The password confirmation field is required',
                 required,
@@ -53,17 +54,82 @@ const rules = computed(() => {
     }
 })
 
-const { value: control } = useVuelidate(rules, formData)
+const control = useVuelidate(rules, formData)
 
 const submitForm = () => {
-    control.$validate()
-    if (!control.$error) {
+    control.value.$validate()
+
+    if (!control.value.$error) {
         console.log(formData)
-        console.log(control)
     }
 }
-const props = { control, formData, submitForm }
 </script>
 <template>
-    <Register v-bind="{ ...props }" />
+    <div class="h-screen w-screen bg-black text-white">
+        <div
+            class="w-full h-full flex justify-between flex-col px-4 py-20 m-auto max-w-xl lg:max-w-none lg:flex-row lg:w-4/5"
+        >
+            <div class="lg:flex-1 lg:justify-center lg:flex lg:flex-col">
+                <div class="pb-14 gap-8 flex flex-col">
+                    <div class="h-36 w-fit">
+                        <img
+                            src="@/assets/svg/logo.svg"
+                            class="w-full h-full"
+                            alt="Logo"
+                        />
+                    </div>
+                    <h1 class="font-bold text-2xl">
+                        Design faster and plan to scale.
+                    </h1>
+                </div>
+            </div>
+            <div
+                class="flex flex-col gap-4 lg:flex-1 lg:justify-center lg:flex lg:flex-col"
+            >
+                <div class="flex gap-2 flex-col items-center w-full">
+                    <h1 class="font-bold text-2xl">Welcome to Maket</h1>
+                    <p class="text-sm">
+                        Don't have an account ?
+                        <NuxtLink class="underline cursor-pointer"
+                            >Click here</NuxtLink
+                        >
+                    </p>
+                    <form
+                        @submit.prevent="submitForm"
+                        class="w-full md:w-2/3 m-auto"
+                    >
+                        <VTextField
+                            title="Email"
+                            name="email"
+                            v-model.trim="formData.email"
+                            :control="control.email"
+                        />
+
+                        <VTextField
+                            title="Password"
+                            name="password"
+                            v-model.trim="formData.password"
+                            :control="control.password"
+                        />
+
+                        <VTextField
+                            title="Confirm Password"
+                            name="confirm"
+                            v-model.trim="formData.confirm"
+                            :control="control.confirm"
+                        />
+
+                        <VButton
+                            type="submit"
+                            mode="primary"
+                            class="mt-4"
+                            wFull
+                        >
+                            Submit
+                        </VButton>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
