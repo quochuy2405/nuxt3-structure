@@ -12,8 +12,6 @@ const { title, modelValue, control, name, ...props } = withDefaults(
     {},
 )
 const className = computed(() => ({
-    'bg-opacity-20 w-full rounded border border-gray-600 bg-transparent py-1 px-3 text-base leading-8 text-gray-100 outline-none transition-colors duration-200 ease-in-out placeholder:text-gray-500 placeholder:font-semibold text-sm focus:border-blue-500 focus:bg-transparent focus:ring-2 focus:ring-transparent flex-1 pr-6 py-1.5':
-        true,
     'border-red-500 focus:border-red-500': control?.$error,
     'border-[#42d392] ': !control?.$invalid,
     [props.class || '']: props.class,
@@ -34,6 +32,7 @@ const emit = defineEmits(['update:modelValue'])
                 type="text"
                 :name="name"
                 placeholder="e.g. example@email.com"
+                class="bg-opacity-20 w-full rounded border border-gray-600 bg-transparent py-1 px-3 text-base leading-8 text-gray-100 outline-none transition-colors duration-200 ease-in-out placeholder:text-gray-500 placeholder:font-semibold text-sm focus:border-blue-500 focus:bg-transparent focus:ring-2 focus:ring-transparent flex-1 pr-6 py-1.5"
                 :class="className"
                 @input="
                     emit(
