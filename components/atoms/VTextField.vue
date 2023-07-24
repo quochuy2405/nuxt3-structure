@@ -34,9 +34,9 @@ const updateValue = (event: any) => {
                 type="text"
                 :name="name"
                 placeholder="e.g. example@email.com"
-                class="bg-opacity-20 w-full rounded border border-gray-600 bg-transparent px-3 leading-8 text-gray-100 outline-none transition-colors duration-200 ease-in-out placeholder:text-gray-500 placeholder:font-semibold text-sm focus:border-blue-500 focus:bg-transparent focus:ring-2 focus:ring-transparent flex-1 pr-6 py-1.5"
+                class="input-default"
                 :class="className"
-                @change="updateValue"
+                @input="updateValue"
                 :value="value"
             />
             <!-- The icon is going to render but the name of the icon it will depend on the validation output and the color as well -->

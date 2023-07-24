@@ -1,13 +1,7 @@
 <script setup lang="ts">
 import { Register } from '@/components/templates'
-import {
-    required,
-    email,
-    sameAs,
-    minLength,
-    helpers,
-} from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
+import { rules } from '@/resolvers/register.rule'
 export interface RegisterForm {
     email: string
     password: string
@@ -19,42 +13,13 @@ definePageMeta({
     },
     layout: 'slot',
 })
-const formData = reactive({
+const formData = reactive<RegisterForm>({
     email: '',
     password: '',
     confirmPassword: null,
 })
 
-const rules = computed(() => {
-    return {
-        email: {
-            required: helpers.withMessage(
-                'The email field is required',
-                required,
-            ),
-            email: helpers.withMessage('Invalid email format', email),
-        },
-        password: {
-            required: helpers.withMessage(
-                'The password field is required',
-                required,
-            ),
-            minLength: minLength(6),
-        },
-        confirmPassword: {
-            required: helpers.withMessage(
-                'The password confirmation field is required',
-                required,
-            ),
-            sameAs: helpers.withMessage(
-                "Passwords don't match",
-                () => formData.password === formData.confirmPassword,
-            ),
-        },
-    }
-})
-
-const control = useVuelidate(rules, formData)
+const control = useVuelidate(rules(formData), formData)
 
 const submitForm = () => {
     control.value.$validate()
