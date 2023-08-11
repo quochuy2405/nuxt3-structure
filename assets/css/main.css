@@ -15,10 +15,13 @@
     .input-default {
         @apply w-full rounded border border-gray-600 bg-transparent px-3 leading-8 text-gray-100 outline-none transition-colors duration-200 ease-in-out placeholder:text-gray-500 placeholder:font-semibold text-sm focus:border-blue-500 focus:bg-transparent focus:ring-2 focus:ring-transparent flex-1 pr-6 py-1.5;
     }
+    .heading {
+        @apply text-3xl font-medium text-black;
+    }
 }
 @layer base {
     html {
-        font-family: 'Inter', sans-serif;
+        font-family: 'Raleway', sans-serif;
     }
     .nuxt-icon--fill,
     .nuxt-icon--fill * {
@@ -32,5 +35,56 @@
     body {
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
+    }
+    .fade-top {
+        animation-name: fade-top-keyframes;
+        animation-duration: 0.9s;
+        animation-fill-mode: forwards;
+        opacity: 0;
+    }
+    .fade-bottom {
+        animation-name: fade-bottom-keyframes;
+        animation-duration: 0.9s;
+        animation-fill-mode: forwards;
+        opacity: 0;
+    }
+    .fade {
+        animation-name: fade-keyframes;
+        animation-duration: 2.6s;
+        animation-fill-mode: forwards;
+        /* opacity: 0; */
+    }
+}
+
+@keyframes fade-top-keyframes {
+    0% {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fade-keyframes {
+    0% {
+        opacity: 0.4;
+        transition: all cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+    100% {
+        opacity: 1;
+        transition: all cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+}
+
+@keyframes fade-bottom-keyframes {
+    0% {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
     }
 }

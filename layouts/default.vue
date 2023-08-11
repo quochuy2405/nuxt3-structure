@@ -3,7 +3,7 @@ import { VHeader } from '@/components/organisms'
 </script>
 <template>
     <div>
-        <slot></slot>
         <VHeader />
+        <slot></slot>
     </div>
 </template>

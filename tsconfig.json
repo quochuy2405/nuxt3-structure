@@ -30,9 +30,9 @@
             "@/constants/*": ["constants/*"],
             "@/providers/*": ["providers/*"],
             "@/layouts/*": ["layouts/*"],
-            "@/redux/*": ["redux/*"],
+            "@/stores/*": ["stores/*"],
             "@/resolvers/*": ["resolvers/*"],
-            "@/firebase/*": ["firebase/*"]
+            "@/composables/*": ["composables/*"]
         },
         "incremental": true
     }
