@@ -1,11 +1,23 @@
+import { useAuthStore } from '@/stores/auth'
+import { storeToRefs } from 'pinia'
+
 export default defineNuxtRouteMiddleware((to, from) => {
-    // if (to.params.id === '1') {
-    //     return abortNavigation()
-    // }
-    // In a real app you would probably not redirect every route to `/`
-    // however it is important to check `to.path` before redirecting or you
-    // might get an infinite redirect loop
-    if (to.path !== '/') {
+    const { authenticated } = storeToRefs(useAuthStore()) // make authenticated state reactive
+    const token = useCookie('token') // get token from cookies
+
+    if (token.value) {
+        // check if value exists
+        authenticated.value = true // update the state to authenticated
+    }
+
+    // if token exists and url is /login redirect to homepage
+    if (token.value && to?.name === 'login') {
         return navigateTo('/')
+    }
+
+    // if token doesn't exist redirect to log in
+    if (!token.value && to?.name !== 'login') {
+        abortNavigation()
+        return navigateTo('/login')
     }
 })
